@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>商品运营分析报告 - 广西区域</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "PingFang SC", "Hiragino Sans GB", "Microsoft YaHei", sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            background: white;
+            border-radius: 20px;
+            padding: 60px;
+            max-width: 600px;
+            width: 100%;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            text-align: center;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 32px;
+        }
+        .subtitle {
+            color: #666;
+            margin-bottom: 40px;
+            font-size: 16px;
+        }
+        .report-link {
+            display: block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            padding: 20px 40px;
+            border-radius: 10px;
+            font-size: 20px;
+            font-weight: bold;
+            margin: 20px 0;
+            transition: transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+        }
+        .report-link:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+        .info {
+            margin-top: 30px;
+            padding: 20px;
+            background: #f5f7fa;
+            border-radius: 10px;
+            text-align: left;
+        }
+        .info h3 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        .info p {
+            color: #666;
+            line-height: 1.8;
+            font-size: 14px;
+        }
+        .update-time {
+            margin-top: 20px;
+            color: #999;
+            font-size: 13px;
+        }
+        .icon {
+            font-size: 48px;
+            margin-bottom: 20px;
+        }
+    </style>
+    <script>
+        // 自动检测最新报告文件
+        async function findLatestReport() {
+            try {
+                // 尝试获取目录列表（需要GitHub Pages启用目录列表功能）
+                const response = await fetch('.');
+                const text = await response.text();
+                
+                // 从HTML中提取所有HTML文件
+                const matches = text.match(/商品运营分析报告_\d+_\d+\.html/g);
+                
+                if (matches && matches.length > 0) {
+                    // 按文件名排序，获取最新的
+                    matches.sort().reverse();
+                    return matches[0];
+                }
+            } catch (e) {
+                console.log('无法自动检测最新报告，使用默认文件');
+            }
+            
+            // 如果自动检测失败，返回null（将显示手动选择）
+            return null;
+        }
+        
+        // 页面加载时自动跳转
+        window.addEventListener('load', async function() {
+            const latestReport = await findLatestReport();
+            if (latestReport) {
+                document.getElementById('latest-link').href = latestReport;
+                document.getElementById('latest-text').textContent = '查看最新报告 (' + latestReport.replace('商品运营分析报告_', '').replace('.html', '') + ')';
+            } else {
+                document.getElementById('latest-text').textContent = '查看最新报告（请手动选择）';
+            }
+        });
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="icon">📊</div>
+        <h1>商品运营分析报告</h1>
+        <div class="subtitle">广西区域 - 拼好饭 + 神抢手</div>
+        
+        <a id="latest-link" href="商品运营分析报告_0528_0912.html" class="report-link">
+            <span id="latest-text">查看最新报告</span>
+        </a>
+        
+        <div class="info">
+            <h3>📝 报告说明</h3>
+            <p>
+                • 本报告每日自动更新，追踪最新KPI完成进度<br>
+                • 包含结果指标（拼好饭/神抢手完成率）和过程指标（重点货盘/食安/自提等）<br>
+                • 数据来源：广西区域12个分区经理、8个玉林商城市、3个合浦商城市<br>
+                • 支持时间进度对比、风险预警、城市排名等功能
+            </p>
+        </div>
+        
+        <div class="update-time">
+            页面自动更新 | 最后部署：2026-05-28
+        </div>
+    </div>
+</body>
+</html>
